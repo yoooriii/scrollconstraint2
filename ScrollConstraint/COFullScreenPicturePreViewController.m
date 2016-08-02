@@ -1,29 +1,39 @@
-//
-//  COFullScreenPicturePreViewController.m
-//  ScrollConstraint
-//
-//  Created by leonid lo on 8/1/16.
-//  Copyright © 2016 horns & hoofs. All rights reserved.
-//
-
-
-//TODO: update copyright & BOM
+﻿/*
+ * Copyright (c) XCDS International Ltd., 2013-2016
+ *
+ * You can not use the contents of the file in any way without
+ * XCDS International Ltd. written permission.
+ *
+ * To obtain such a permit, you should contact XCDS International Ltd.
+ * at http://xcds.com/contact.html
+ *
+ */
 
 #import "COFullScreenPicturePreViewController.h"
-#import "CODisplayView.h"
+#import "COIntrinsicBoxView.h"
 
 static const NSTimeInterval AnimationDuration = 0.25;
 static const CGFloat ValueHalfOne = 0.5;
 
 @interface COFullScreenPicturePreViewController () <UIScrollViewDelegate>
-@property (nonatomic, weak) IBOutlet CODisplayView* imageView;
+
+#pragma mark - Outlets
+
+@property (nonatomic, weak) IBOutlet UIImageView* imageView;
+@property (nonatomic, weak) IBOutlet COIntrinsicBoxView* pictureContainerView;
 @property (nonatomic, weak) IBOutlet UIScrollView* scrollView;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView* spinner;
 @property (nonatomic, assign) IBInspectable CGSize placeholderImageSize;
+
+#pragma mark -
+
 @property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) BOOL isPresentingOn;
 @property (nonatomic, assign) BOOL imageDidUpdate;
+
 @end
+
+#pragma mark -
 
 @implementation COFullScreenPicturePreViewController
 
@@ -37,6 +47,13 @@ static const CGFloat ValueHalfOne = 0.5;
         self.imageView.layer.cornerRadius = 20;
         self.imageView.layer.borderColor = [UIColor yellowColor].CGColor;
         self.imageView.layer.borderWidth = 1;
+    }
+
+    if (1)
+    {
+        self.pictureContainerView.layer.cornerRadius = 25;
+        self.pictureContainerView.layer.borderColor = [UIColor blueColor].CGColor;
+        self.pictureContainerView.layer.borderWidth = 1;
     }
 
     if (1)
@@ -58,7 +75,7 @@ static const CGFloat ValueHalfOne = 0.5;
     self.imageView.image = noImage ? self.placeholderImage : self.image;
     [self setProgressAnimating:noImage];
     [self adjustViewerSize];
-    self.imageView.alpha = 0;
+    self.pictureContainerView.alpha = 0;
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
@@ -71,7 +88,8 @@ static const CGFloat ValueHalfOne = 0.5;
 
 #pragma mark - View controller's
 
-- (BOOL)prefersStatusBarHidden {
+- (BOOL)prefersStatusBarHidden
+{
     return YES;
 }
 
@@ -79,31 +97,28 @@ static const CGFloat ValueHalfOne = 0.5;
 {
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>context)
      {
-         NSLog(@"rotation");
          [self adjustViewerSize];
          [self centerImageAnimated:NO];
      }
                                  completion:^(id<UIViewControllerTransitionCoordinatorContext>context)
      {
-         NSLog(@"did rotate");
-         NSLog(@"%@-->%@-->%@",
-               NSStringFromCGRect(self.view.bounds),
-               NSStringFromCGRect(self.scrollView.frame),
-               NSStringFromCGSize(self.imageView.frame.size));
      }];
 }
 
 #pragma mark - UIScrollViewDelegate
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return self.imageView;
+- (UIView*)viewForZoomingInScrollView:(UIScrollView*)scrollView
+{
+    return self.pictureContainerView;
 }
 
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+- (void)scrollViewDidZoom:(UIScrollView*)scrollView
+{
     [self centerImageAnimated:NO];
 }
 
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
+- (void)scrollViewDidEndZooming:(UIScrollView*)scrollView withView:(nullable UIView*)view atScale:(CGFloat)scale
+{
     [self centerImageAnimated:YES];
 }
 
@@ -117,36 +132,40 @@ static const CGFloat ValueHalfOne = 0.5;
     if (viewerRatio > 0)
     {
         //TODO: default preview size when no image available (placeholder ?) or hide it
-        const CGSize pictureSize = (nil == self.imageView.image) ? self.placeholderImageSize : self.imageView.image.size;
+        const CGSize pictureSize = (nil == self.image) ? self.placeholderImageSize : self.imageView.image.size;
         const CGFloat pictureRatio = pictureSize.width / pictureSize.height;
         CGSize displaySize = viewerSize;
 
         if (viewerRatio > pictureRatio)
         {
+            if (!self.shouldFitSmallImageIn)
+            {
+                displaySize.height = MIN(pictureSize.height, viewerSize.height);
+            }
             displaySize.width = floor(displaySize.height * pictureRatio);
         }
         else
         {
+            if (!self.shouldFitSmallImageIn)
+            {
+                displaySize.width = MIN(pictureSize.width, viewerSize.width);
+            }
             displaySize.height = floor(displaySize.width / pictureRatio);
         }
 
-        self.imageView.intrinsicContentSize = displaySize;
-    }
-    else
-    {
-        NSLog(@"wrong viewer size %@", NSStringFromCGSize(viewerSize));
+        self.pictureContainerView.intrinsicContentSize = displaySize;
     }
 }
 
 - (void)centerImageAnimated:(BOOL)animated
 {
-    const CGSize imageSize = self.imageView.frame.size;
+    const CGSize imageSize = self.pictureContainerView.frame.size;
     const CGRect viewFrame = self.scrollView.frame;
     UIEdgeInsets insets = {0};
 
     if ((COImageResizeThreshold < imageSize.width) && (COImageResizeThreshold < imageSize.height))
     {
-        insets.left = MAX(0, (ValueHalfOne * (viewFrame.size.width  - imageSize.width)));
+        insets.left = MAX(0, (ValueHalfOne * (viewFrame.size.width - imageSize.width)));
         insets.top  = MAX(0, (ValueHalfOne * (viewFrame.size.height - imageSize.height)));
     }
 
@@ -174,22 +193,6 @@ static const CGFloat ValueHalfOne = 0.5;
     }
 }
 
-- (void)setProgressAnimating:(BOOL)animating
-{
-    animating ? [self.spinner startAnimating] : [self.spinner stopAnimating];
-}
-
-#pragma mark - Public methods
-
-//- (void)showPicture:(UIImage*)picture animated:(BOOL)animated ///?????
-//{
-//    self.imageView.hidden = YES;
-//    self.imageView.image = picture;
-//    [self adjustViewerSize];
-//    [self centerImageAnimated:NO];
-//    [self.scrollView layoutIfNeeded];
-//}
-
 - (CGAffineTransform)makeTransformFromRect:(CGRect)fromRect toRect:(CGRect)endRect
 {
     const BOOL isRect = !CGRectIsNull(fromRect);
@@ -203,32 +206,31 @@ static const CGFloat ValueHalfOne = 0.5;
     return isRect ? CGAffineTransformScale(CGAffineTransformMakeTranslation(tx, ty), sx, sy) : CGAffineTransformMakeScale(0, 0);
 }
 
+- (void)setProgressAnimating:(BOOL)animating
+{
+    animating ? [self.spinner startAnimating] : [self.spinner stopAnimating];
+}
+
+#pragma mark - Public methods
+
 - (void)runPresentAnimationFromRect:(CGRect)fromRect completion:(void (^)())completionBlock
 {
     [self adjustViewerSize];
     [self centerImageAnimated:NO];
 
-
-    NSLog(@"%@-->%@-->%@",
-          NSStringFromCGRect(self.view.bounds),
-          NSStringFromCGRect(self.scrollView.frame),
-          NSStringFromCGSize(self.imageView.frame.size));
-
-
-    self.imageView.alpha = 1;
-
+    self.pictureContainerView.alpha = 1;
     self.isPresenting = YES;
 
     if (0 < self.animationDuration)
     {
         [self.scrollView layoutIfNeeded];
 
-        self.imageView.transform = [self makeTransformFromRect:fromRect toRect:[self.view convertRect:self.imageView.frame fromView:self.imageView.superview]];
+        self.pictureContainerView.transform = [self makeTransformFromRect:fromRect toRect:[self.view convertRect:self.pictureContainerView.frame fromView:self.pictureContainerView.superview]];
 
         [UIView animateWithDuration:self.animationDuration
                          animations:^
          {
-             self.imageView.transform = CGAffineTransformIdentity;
+             self.pictureContainerView.transform = CGAffineTransformIdentity;
              self.backgroundView.alpha = 0;
          }
                          completion:^(BOOL finished)
@@ -255,7 +257,7 @@ static const CGFloat ValueHalfOne = 0.5;
 
     if (0 < self.animationDuration)
     {
-        const CGRect currentRect = [self.imageView.superview convertRect:self.imageView.frame toView:nil];
+        const CGRect currentRect = [self.pictureContainerView.superview convertRect:self.pictureContainerView.frame toView:nil];
         //TODO: check transform logic
         const CGAffineTransform transform = CGAffineTransformInvert([self makeTransformFromRect:currentRect toRect:endRect]);
 
@@ -265,7 +267,7 @@ static const CGFloat ValueHalfOne = 0.5;
         [UIView animateWithDuration:self.animationDuration
                          animations:^
          {
-             self.imageView.transform = transform;
+             self.pictureContainerView.transform = transform;
              self.backgroundView.alpha = 1;
          }
                          completion:^(BOOL finished)
@@ -289,7 +291,7 @@ static const CGFloat ValueHalfOne = 0.5;
     }
 }
 
-- (void)setImage:(UIImage *)image
+- (void)setImage:(UIImage*)image
 {
     if (_image != image)
     {
@@ -319,16 +321,5 @@ static const CGFloat ValueHalfOne = 0.5;
         [self.scrollView setZoomScale:newZoom animated:YES];
     }
 }
-
-#pragma mark - Debug
-
-//- (void)printScrollInfo {
-//    const UIEdgeInsets insets = self.scrollView.contentInset;
-//    const CGSize imageSize = self.imageView.frame.size;
-//    const CGRect viewFrame = self.scrollView.frame;
-//
-//    printf("W: %2.1f + %2.1f + () --> %2.1f; [%2.1f]\n", insets.left, imageSize.width, viewFrame.size.width, (insets.left * 2.0 + imageSize.width));
-//    printf("H: %2.1f + %2.1f + () --> %2.1f; [%2.1f]\n", insets.top, imageSize.height, viewFrame.size.height, (insets.top * 2.0 + imageSize.height));
-//}
 
 @end

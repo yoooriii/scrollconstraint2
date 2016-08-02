@@ -1,10 +1,13 @@
-//
-//  COFullScreenPicturePreViewController.h
-//  ScrollConstraint
-//
-//  Created by leonid lo on 8/1/16.
-//  Copyright © 2016 horns & hoofs. All rights reserved.
-//
+﻿/*
+ * Copyright (c) XCDS International Ltd., 2013-2016
+ *
+ * You can not use the contents of the file in any way without
+ * XCDS International Ltd. written permission.
+ *
+ * To obtain such a permit, you should contact XCDS International Ltd.
+ * at http://xcds.com/contact.html
+ *
+ */
 
 #import <UIKit/UIKit.h>
 
@@ -14,6 +17,7 @@
 @property (nonatomic, strong) UIImage* image;
 @property (nonatomic, strong) UIImage* placeholderImage;
 @property (nonatomic, strong) UIView *backgroundView;
+@property (nonatomic, assign) BOOL shouldFitSmallImageIn;
 
 @property (nonatomic, assign) IBInspectable double animationDuration;
 

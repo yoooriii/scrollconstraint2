@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		E20F2D101D4F4D6800700D3C /* 06.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E20F2D0F1D4F4D6800700D3C /* 06.jpg */; };
 		E20F2D131D4F65F300700D3C /* COFullScreenPicturePreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E20F2D121D4F65F300700D3C /* COFullScreenPicturePreViewController.m */; };
-		E20F2D161D4F866500700D3C /* CODisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = E20F2D151D4F866500700D3C /* CODisplayView.m */; };
+		E20F2D161D4F866500700D3C /* COIntrinsicBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = E20F2D151D4F866500700D3C /* COIntrinsicBoxView.m */; };
 		E20F2D191D4F94FB00700D3C /* ZoomedPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E20F2D181D4F94FB00700D3C /* ZoomedPhotoViewController.m */; };
 		E20F2D1C1D4FBA4600700D3C /* 07.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E20F2D1B1D4FBA4600700D3C /* 07.jpg */; };
 		E2FEAB2C1D4B428B00901841 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FEAB2B1D4B428B00901841 /* main.m */; };
@@ -30,8 +30,8 @@
 		E20F2D0F1D4F4D6800700D3C /* 06.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 06.jpg; sourceTree = "<group>"; };
 		E20F2D111D4F65F300700D3C /* COFullScreenPicturePreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COFullScreenPicturePreViewController.h; sourceTree = "<group>"; };
 		E20F2D121D4F65F300700D3C /* COFullScreenPicturePreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COFullScreenPicturePreViewController.m; sourceTree = "<group>"; };
-		E20F2D141D4F866500700D3C /* CODisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CODisplayView.h; sourceTree = "<group>"; };
-		E20F2D151D4F866500700D3C /* CODisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CODisplayView.m; sourceTree = "<group>"; };
+		E20F2D141D4F866500700D3C /* COIntrinsicBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COIntrinsicBoxView.h; sourceTree = "<group>"; };
+		E20F2D151D4F866500700D3C /* COIntrinsicBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COIntrinsicBoxView.m; sourceTree = "<group>"; };
 		E20F2D171D4F94FB00700D3C /* ZoomedPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomedPhotoViewController.h; sourceTree = "<group>"; };
 		E20F2D181D4F94FB00700D3C /* ZoomedPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomedPhotoViewController.m; sourceTree = "<group>"; };
 		E20F2D1B1D4FBA4600700D3C /* 07.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 07.jpg; sourceTree = "<group>"; };
@@ -68,8 +68,8 @@
 		E20F2D1A1D4FB12100700D3C /* Preview */ = {
 			isa = PBXGroup;
 			children = (
-				E20F2D141D4F866500700D3C /* CODisplayView.h */,
-				E20F2D151D4F866500700D3C /* CODisplayView.m */,
+				E20F2D141D4F866500700D3C /* COIntrinsicBoxView.h */,
+				E20F2D151D4F866500700D3C /* COIntrinsicBoxView.m */,
 				E20F2D111D4F65F300700D3C /* COFullScreenPicturePreViewController.h */,
 				E20F2D121D4F65F300700D3C /* COFullScreenPicturePreViewController.m */,
 			);
@@ -220,7 +220,7 @@
 				E20F2D191D4F94FB00700D3C /* ZoomedPhotoViewController.m in Sources */,
 				E20F2D131D4F65F300700D3C /* COFullScreenPicturePreViewController.m in Sources */,
 				E2FEAB2C1D4B428B00901841 /* main.m in Sources */,
-				E20F2D161D4F866500700D3C /* CODisplayView.m in Sources */,
+				E20F2D161D4F866500700D3C /* COIntrinsicBoxView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

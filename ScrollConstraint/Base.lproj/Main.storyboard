@@ -85,32 +85,47 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="5" translatesAutoresizingMaskIntoConstraints="NO" id="3F6-ZM-aRT">
                                 <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="nzm-5m-iVN" customClass="CODisplayView">
+                                    <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="vst-o2-BHU" userLabel="Picture Container View" customClass="COIntrinsicBoxView">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="nzm-5m-iVN">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <gestureRecognizers/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="point" keyPath="layer.anchorPoint">
+                                                        <point key="value" x="0.5" y="0.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XDc-xN-idU">
+                                                <rect key="frame" x="90" y="40" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="LCq-jy-Xsi"/>
-                                            <constraint firstAttribute="width" constant="200" id="MaF-U7-RbN"/>
+                                            <constraint firstItem="nzm-5m-iVN" firstAttribute="leading" secondItem="vst-o2-BHU" secondAttribute="leading" id="3zp-5W-2Xo"/>
+                                            <constraint firstItem="nzm-5m-iVN" firstAttribute="trailing" secondItem="vst-o2-BHU" secondAttribute="trailing" id="JtJ-HM-s0L"/>
+                                            <constraint firstAttribute="height" constant="100" id="Qxq-yS-quJ"/>
+                                            <constraint firstItem="XDc-xN-idU" firstAttribute="centerY" secondItem="vst-o2-BHU" secondAttribute="centerY" id="bhT-7s-21N"/>
+                                            <constraint firstItem="nzm-5m-iVN" firstAttribute="bottom" secondItem="vst-o2-BHU" secondAttribute="bottom" id="cVz-DV-tmx"/>
+                                            <constraint firstItem="XDc-xN-idU" firstAttribute="centerX" secondItem="vst-o2-BHU" secondAttribute="centerX" id="k4L-fc-dDY"/>
+                                            <constraint firstItem="nzm-5m-iVN" firstAttribute="top" secondItem="vst-o2-BHU" secondAttribute="top" id="pot-wR-6vC"/>
+                                            <constraint firstAttribute="width" constant="200" id="reM-Yb-T5R"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="point" keyPath="layer.anchorPoint">
-                                                <point key="value" x="0.5" y="0.5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="constraintHeight" destination="LCq-jy-Xsi" id="S5r-XC-FMh"/>
-                                            <outlet property="constraintWidth" destination="MaF-U7-RbN" id="w3g-cV-otn"/>
+                                            <outlet property="constraintHeight" destination="Qxq-yS-quJ" id="lZd-dZ-LDH"/>
+                                            <outlet property="constraintWidth" destination="reM-Yb-T5R" id="SEF-8x-Fif"/>
                                         </connections>
-                                    </imageView>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="top" secondItem="nzm-5m-iVN" secondAttribute="top" id="5ky-fw-eC8"/>
-                                    <constraint firstAttribute="leading" secondItem="nzm-5m-iVN" secondAttribute="leading" id="gZu-pY-8yt"/>
-                                    <constraint firstAttribute="trailing" secondItem="nzm-5m-iVN" secondAttribute="trailing" id="qtf-7Y-Ybl"/>
-                                    <constraint firstAttribute="bottom" secondItem="nzm-5m-iVN" secondAttribute="bottom" id="xbj-Xd-H3f"/>
+                                    <constraint firstAttribute="bottom" secondItem="vst-o2-BHU" secondAttribute="bottom" id="GVo-oM-y5z"/>
+                                    <constraint firstAttribute="trailing" secondItem="vst-o2-BHU" secondAttribute="trailing" id="RJK-n6-wn0"/>
+                                    <constraint firstItem="vst-o2-BHU" firstAttribute="top" secondItem="3F6-ZM-aRT" secondAttribute="top" id="hHd-ds-yq4"/>
+                                    <constraint firstItem="vst-o2-BHU" firstAttribute="leading" secondItem="3F6-ZM-aRT" secondAttribute="leading" id="k52-0T-o19"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="SoE-wQ-gK8" id="gdb-S2-uuA"/>
@@ -154,7 +169,9 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="imageView" destination="nzm-5m-iVN" id="qaw-ws-UOS"/>
+                        <outlet property="pictureContainerView" destination="vst-o2-BHU" id="ADr-yB-G2i"/>
                         <outlet property="scrollView" destination="3F6-ZM-aRT" id="wM4-sa-Oho"/>
+                        <outlet property="spinner" destination="XDc-xN-idU" id="0Gq-ld-l08"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ve-mR-vP6" userLabel="First Responder" sceneMemberID="firstResponder"/>

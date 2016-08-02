@@ -309,6 +309,17 @@ static const CGFloat ValueHalfOne = 0.5;
     }
 }
 
+- (IBAction)doubleTapAction:(UIGestureRecognizer*)sender
+{
+    if (UIGestureRecognizerStateEnded == sender.state)
+    {
+        const CGFloat zoomScale = self.scrollView.zoomScale;
+        const CGFloat zoomMedian = ValueHalfOne * (self.scrollView.maximumZoomScale + self.scrollView.minimumZoomScale);
+        const CGFloat newZoom = (zoomScale < zoomMedian) ? self.scrollView.maximumZoomScale : self.scrollView.minimumZoomScale;
+        [self.scrollView setZoomScale:newZoom animated:YES];
+    }
+}
+
 #pragma mark - Debug
 
 //- (void)printScrollInfo {

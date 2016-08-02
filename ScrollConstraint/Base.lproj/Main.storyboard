@@ -73,7 +73,7 @@
         <!--Picture Preview-->
         <scene sceneID="VlQ-c6-R1m">
             <objects>
-                <viewController storyboardIdentifier="OneImageVC" title="Picture Preview" id="SoE-wQ-gK8" customClass="COFullScreenPicturePreViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="COFullScreenPicturePreViewController" title="Picture Preview" id="SoE-wQ-gK8" customClass="COFullScreenPicturePreViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3D1-KA-QZe" userLabel="my top lay guide"/>
                         <viewControllerLayoutGuide type="bottom" id="uOY-PZ-sNW" userLabel="my bottom lay guide"/>
@@ -105,6 +105,7 @@
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="top" secondItem="nzm-5m-iVN" secondAttribute="top" id="5ky-fw-eC8"/>
                                     <constraint firstAttribute="leading" secondItem="nzm-5m-iVN" secondAttribute="leading" id="gZu-pY-8yt"/>
@@ -113,6 +114,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="SoE-wQ-gK8" id="gdb-S2-uuA"/>
+                                    <outletCollection property="gestureRecognizers" destination="vGo-eC-Xc9" appends="YES" id="psb-OW-UY8"/>
                                 </connections>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Maq-Wv-j3B" userLabel="Dismiss button">
@@ -162,6 +164,11 @@
                         <action selector="dismissAction:" destination="SoE-wQ-gK8" id="tt1-bg-bgw"/>
                     </connections>
                 </screenEdgePanGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="vGo-eC-Xc9">
+                    <connections>
+                        <action selector="doubleTapAction:" destination="SoE-wQ-gK8" id="Nxf-Cv-fS6"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="688" y="1625"/>
         </scene>

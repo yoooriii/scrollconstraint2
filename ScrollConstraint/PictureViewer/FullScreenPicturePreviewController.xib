@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="COFullScreenPicturePreviewController">
+            <connections>
+                <outlet property="dismissButton" destination="Pjv-RC-cJu" id="sKg-9A-Pxx"/>
+                <outlet property="imageView" destination="jmg-ku-2yL" id="giE-wQ-fMj"/>
+                <outlet property="obscureView" destination="gVc-SS-ry5" id="34o-qI-JWs"/>
+                <outlet property="pictureContainerView" destination="USA-r5-bQ4" id="Tnp-Xr-evm"/>
+                <outlet property="scrollView" destination="nfE-ml-IRk" id="3aF-Ax-LEn"/>
+                <outlet property="spinner" destination="K7L-CG-MTO" id="mOV-yA-5c2"/>
+                <outlet property="swipeToDismissRecognizer" destination="jjy-zW-R2T" id="RAs-ta-x34"/>
+                <outlet property="view" destination="RpQ-PW-Ywq" id="0oa-JM-EZm"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tapGestureRecognizer numberOfTapsRequired="2" id="CMI-tG-Zys" userLabel="2Tap Gesture Recognizer (Zoom)">
+            <connections>
+                <action selector="doubleTapAction:" destination="-1" id="mg9-p5-tgx"/>
+            </connections>
+        </tapGestureRecognizer>
+        <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="4hC-Cy-1xi">
+            <rectEdge key="edges" top="YES"/>
+            <connections>
+                <action selector="dismissAction:" destination="-1" id="Ztl-31-b2G"/>
+            </connections>
+        </screenEdgePanGestureRecognizer>
+        <view contentMode="scaleToFill" id="RpQ-PW-Ywq">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gVc-SS-ry5" userLabel="Obscure View">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="5" translatesAutoresizingMaskIntoConstraints="NO" id="nfE-ml-IRk">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="USA-r5-bQ4" userLabel="Picture Container View" customClass="COIntrinsicBoxView">
+                            <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
+                            <subviews>
+                                <imageView contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="jmg-ku-2yL">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <gestureRecognizers/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="point" keyPath="layer.anchorPoint">
+                                            <point key="value" x="0.5" y="0.5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="jjy-zW-R2T" appends="YES" id="X3M-Jc-fGJ"/>
+                                    </connections>
+                                </imageView>
+                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="K7L-CG-MTO">
+                                    <rect key="frame" x="90" y="40" width="20" height="20"/>
+                                    <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="jmg-ku-2yL" firstAttribute="trailing" secondItem="USA-r5-bQ4" secondAttribute="trailing" id="M6X-5P-yFN"/>
+                                <constraint firstItem="K7L-CG-MTO" firstAttribute="centerY" secondItem="USA-r5-bQ4" secondAttribute="centerY" id="Mde-Nd-2Z6"/>
+                                <constraint firstAttribute="width" constant="200" id="e0t-OY-uE1"/>
+                                <constraint firstItem="jmg-ku-2yL" firstAttribute="leading" secondItem="USA-r5-bQ4" secondAttribute="leading" id="fcY-UY-pKF"/>
+                                <constraint firstItem="K7L-CG-MTO" firstAttribute="centerX" secondItem="USA-r5-bQ4" secondAttribute="centerX" id="gQG-ej-dAX"/>
+                                <constraint firstItem="jmg-ku-2yL" firstAttribute="bottom" secondItem="USA-r5-bQ4" secondAttribute="bottom" id="h4G-lm-4sg"/>
+                                <constraint firstItem="jmg-ku-2yL" firstAttribute="top" secondItem="USA-r5-bQ4" secondAttribute="top" id="oQf-1c-O9J"/>
+                                <constraint firstAttribute="height" constant="100" id="pMs-jp-iiW"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="constraintHeight" destination="pMs-jp-iiW" id="gZM-j8-6MV"/>
+                                <outlet property="constraintWidth" destination="e0t-OY-uE1" id="ZLr-la-nqH"/>
+                            </connections>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="USA-r5-bQ4" firstAttribute="leading" secondItem="nfE-ml-IRk" secondAttribute="leading" id="5a0-um-ngu"/>
+                        <constraint firstAttribute="bottom" secondItem="USA-r5-bQ4" secondAttribute="bottom" id="cba-FP-xH4"/>
+                        <constraint firstItem="USA-r5-bQ4" firstAttribute="top" secondItem="nfE-ml-IRk" secondAttribute="top" id="ifa-bM-WFU"/>
+                        <constraint firstAttribute="trailing" secondItem="USA-r5-bQ4" secondAttribute="trailing" id="pZl-CT-2C8"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="c1I-NC-PHL"/>
+                        <outletCollection property="gestureRecognizers" destination="CMI-tG-Zys" appends="YES" id="b3u-Ap-q6B"/>
+                    </connections>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pjv-RC-cJu" userLabel="Dismiss button">
+                    <rect key="frame" x="10" y="10" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="23C-f9-lJp"/>
+                        <constraint firstAttribute="height" constant="44" id="bsI-Rs-xER"/>
+                    </constraints>
+                    <state key="normal" image="btn-dismiss-0.png"/>
+                    <connections>
+                        <action selector="dismissAction:" destination="-1" eventType="touchUpInside" id="CKk-Y0-LPx"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PvK-Cv-bkO">
+                    <rect key="frame" x="10" y="426" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="Gr2-bR-DWW"/>
+                        <constraint firstAttribute="height" constant="44" id="TUI-Cb-u4z"/>
+                    </constraints>
+                    <state key="normal" title="1"/>
+                    <connections>
+                        <action selector="setAnchor0:" destination="-1" eventType="touchUpInside" id="CqH-wb-YNY"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6x-fU-y8L">
+                    <rect key="frame" x="267" y="425" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="F2H-eQ-Mex"/>
+                        <constraint firstAttribute="width" constant="44" id="vIT-MH-IEj"/>
+                    </constraints>
+                    <state key="normal" title="2"/>
+                    <connections>
+                        <action selector="setAnchor1:" destination="-1" eventType="touchUpInside" id="c3Y-ck-MKa"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="W6x-fU-y8L" secondAttribute="bottom" constant="11" id="0IU-xW-Rge"/>
+                <constraint firstItem="gVc-SS-ry5" firstAttribute="top" secondItem="RpQ-PW-Ywq" secondAttribute="top" id="6oz-zQ-dAx"/>
+                <constraint firstAttribute="trailing" secondItem="W6x-fU-y8L" secondAttribute="trailing" constant="9" id="7pn-pV-K7E"/>
+                <constraint firstItem="PvK-Cv-bkO" firstAttribute="leading" secondItem="RpQ-PW-Ywq" secondAttribute="leading" constant="10" id="DnG-QG-toH"/>
+                <constraint firstItem="nfE-ml-IRk" firstAttribute="top" secondItem="RpQ-PW-Ywq" secondAttribute="top" id="Hlt-BR-PWB"/>
+                <constraint firstItem="nfE-ml-IRk" firstAttribute="leading" secondItem="RpQ-PW-Ywq" secondAttribute="leading" id="Ik7-ec-Pd8"/>
+                <constraint firstItem="Pjv-RC-cJu" firstAttribute="leading" secondItem="RpQ-PW-Ywq" secondAttribute="leading" constant="10" id="MI2-q7-eq2"/>
+                <constraint firstAttribute="bottom" secondItem="gVc-SS-ry5" secondAttribute="bottom" id="Nwk-dG-R6E"/>
+                <constraint firstAttribute="bottom" secondItem="nfE-ml-IRk" secondAttribute="bottom" id="Pix-g9-58d"/>
+                <constraint firstItem="gVc-SS-ry5" firstAttribute="leading" secondItem="RpQ-PW-Ywq" secondAttribute="leading" id="QgC-2a-HWS"/>
+                <constraint firstItem="nfE-ml-IRk" firstAttribute="trailing" secondItem="RpQ-PW-Ywq" secondAttribute="trailing" id="SLL-9H-qbE"/>
+                <constraint firstItem="Pjv-RC-cJu" firstAttribute="top" secondItem="RpQ-PW-Ywq" secondAttribute="top" constant="10" id="TNv-1A-hAl"/>
+                <constraint firstAttribute="trailing" secondItem="gVc-SS-ry5" secondAttribute="trailing" id="kZJ-oZ-JvZ"/>
+                <constraint firstAttribute="bottom" secondItem="PvK-Cv-bkO" secondAttribute="bottom" constant="10" id="qGs-dB-wAg"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="4hC-Cy-1xi" appends="YES" id="kfC-9C-QQI"/>
+            </connections>
+        </view>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="jjy-zW-R2T" userLabel="Swipe To Dismiss Recognizer (pan)">
+            <connections>
+                <action selector="swipeToDismissAction:" destination="-1" id="O1E-a0-f3m"/>
+            </connections>
+        </panGestureRecognizer>
+        <customObject id="19F-J2-6gu" customClass="COConstraintsFrame"/>
+    </objects>
+    <resources>
+        <image name="btn-dismiss-0.png" width="44" height="44"/>
+    </resources>
+</document>

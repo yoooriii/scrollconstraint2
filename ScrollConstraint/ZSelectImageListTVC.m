@@ -8,7 +8,7 @@
 
 #import "ZSelectImageListTVC.h"
 #import "PreviewController.h"
-#import "COFullScreenPicturePreViewController.h"
+#import "COFullScreenPicturePreviewController.h"
 #import "ZoomedPhotoViewController.h"
 
 @interface ZMySegue : UIStoryboardSegue
@@ -74,58 +74,49 @@
 
 ///////////////////////////
 
-- (void)previewSelected
-{
-    UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    if (!cell.imageView || cell.imageView.hidden)
-    {
-        return;
-    }
-
-    NSString* vcID = @"previewController";
-    PreviewController* ctr = (PreviewController*)[self.storyboard instantiateViewControllerWithIdentifier:vcID];
-
-    ctr.beginRect = [cell.imageView.superview convertRect:cell.imageView.frame toView:nil];
-    ctr.backgroundView = [self.view.window snapshotViewAfterScreenUpdates:NO];
-    ctr.image = cell.imageView.image;
-    [self presentViewController:ctr animated:NO completion:^
-    {
-        NSLog(@"presented");
-
-        [ctr startAnimatingImage];
-    }];
-
-
-
-    ctr.dismissBlock = ^
-    {
-        [self dismissViewControllerAnimated:NO completion:^
-        {
-            NSLog(@"dismissed");
-        }];
-    };
-}
 
 - (void)testViewOneImage
 {
-    UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
+    UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
     if (!cell.imageView || cell.imageView.hidden)
     {
         return;
     }
 
-    COFullScreenPicturePreViewController * ctr = (COFullScreenPicturePreViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"COFullScreenPicturePreViewController"];
+
     UIImageView* imageView = cell.imageView;
-    ctr.image = imageView.image;
-    ctr.backgroundView = [self.view.superview snapshotViewAfterScreenUpdates:NO];
-    const CGRect fromRect = (nil == imageView.image) ? CGRectMake(10, 10, 30, 30) : [imageView.superview convertRect:imageView.frame toView:nil];
+    UIImage* theImage = imageView.image;
 
-    const CGRect endRect = fromRect;
+    COFullScreenPicturePreviewController* ctr = [COFullScreenPicturePreviewController previewController];
+    ctr.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    ctr.animationDuration = 2;
 
-    __weak COFullScreenPicturePreViewController* weakCtr = ctr;
+    if (1)
+    {
+        [ctr performSelector:@selector(setImage:) withObject:theImage afterDelay:1];
+    }
+    else
+    {
+        ctr.image = theImage;
+    }
+
+    const CGRect fromRect = (nil == theImage) ? CGRectInfinite : [imageView.superview convertRect:imageView.frame toView:nil];
+
+
+    __weak COFullScreenPicturePreviewController* weakCtr = ctr;
+    UITableView* tableView = self.tableView;
     ctr.dismissBlock = ^
     {
-        COFullScreenPicturePreViewController* strongCtr = weakCtr;
+        // may change or disappear when rotating, update the document (table) image frame
+        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+        CGRect endRect = CGRectZero;
+        if (cell)
+        {
+            UIImageView* imageView = cell.imageView;
+            endRect = [imageView.superview convertRect:imageView.frame toView:nil];
+        }
+        COFullScreenPicturePreviewController* strongCtr = weakCtr;
         [strongCtr runDismissAnimationIntoRect:endRect
                               completion:^
         {
@@ -137,14 +128,14 @@
 
 //    [self performSelector:@selector(testViewOneImageStart:) withObject:ctr afterDelay:0.3];
 
-    [self presentViewController:ctr animated:NO completion:^
+    [self presentViewController:ctr animated:YES completion:^
      {
          NSLog(@"start anim");
          [ctr runPresentAnimationFromRect:fromRect completion:nil];
      }];
 }
 
-//- (void)testViewOneImageStart:(COFullScreenPicturePreViewController*)ctr
+//- (void)testViewOneImageStart:(COFullScreenPicturePreviewController*)ctr
 //{
 //    [self presentViewController:ctr animated:NO completion:^
 //     {

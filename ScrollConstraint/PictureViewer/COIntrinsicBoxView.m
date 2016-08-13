@@ -43,4 +43,18 @@ const CGFloat COImageResizeThreshold = 0.5;
     }
 }
 
+- (void)addAndHugSubview:(UIView*)subview
+{
+    NSParameterAssert(nil != subview);
+
+    [subview removeConstraints:subview.constraints];
+    [subview removeFromSuperview];
+    subview.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:subview];
+    [subview.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+    [subview.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+    [subview.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+    [subview.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+}
+
 @end

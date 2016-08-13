@@ -17,4 +17,6 @@ extern const CGFloat COImageResizeThreshold;
 
 @property (nonatomic, assign) CGSize intrinsicContentSize;
 
+- (void)addAndHugSubview:(UIView*)subview;
+
 @end
